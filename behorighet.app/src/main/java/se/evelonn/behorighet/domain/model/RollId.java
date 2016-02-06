@@ -24,6 +24,10 @@ public class RollId implements Serializable {
 		return new RollId(UUID.randomUUID());
 	}
 
+	public static RollId från(String id) {
+		return new RollId(UUID.fromString(id));
+	}
+
 	public static RollId från(UUID id) {
 		return new RollId(id);
 	}

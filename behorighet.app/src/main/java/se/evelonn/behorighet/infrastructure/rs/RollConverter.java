@@ -44,6 +44,7 @@ public class RollConverter {
 		@Override
 		public RollRepresentation konvertera(Roll roll) {
 			RollRepresentation rollRepresentation = new RollRepresentation();
+			rollRepresentation.setId(roll.id().värde());
 			rollRepresentation.setNamn(roll.namn());
 			rollRepresentation.setBeskrivning(roll.beskrivning());
 

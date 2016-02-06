@@ -1,19 +1,16 @@
 package se.evelonn.behorighet.api;
 
-import java.util.UUID;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlType(name = "roll")
 @XmlRootElement(name = "roll")
 public class RollRepresentation extends BaseRepresentation {
 
 	@XmlElement(name = "id")
-	@XmlJavaTypeAdapter(UUIDJavaAdapter.class)
-	private UUID id;
+	// @XmlJavaTypeAdapter(UUIDJavaAdapter.class)
+	private String id;
 
 	@XmlElement(name = "namn")
 	private String namn;
@@ -21,11 +18,11 @@ public class RollRepresentation extends BaseRepresentation {
 	@XmlElement(name = "beskrivning")
 	private String beskrivning;
 
-	public UUID getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

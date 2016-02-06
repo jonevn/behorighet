@@ -27,7 +27,6 @@ public class RollResource extends BaseResource {
 	@GET
 	public Response hämtaAllaRoller() {
 		List<Roll> roller = rollService.hämtaAllaRoller();
-
 		return Response.ok().entity(RollConverter.converter(uriInfo).konvertera(roller)).build();
 	}
 
