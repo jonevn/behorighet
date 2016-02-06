@@ -18,7 +18,7 @@ public abstract class BaseRepresentation {
 
 	public static final String DAP_NAMESPACE = "http://evelonn.se/dap";
 
-	@XmlElement(name = "link", namespace = DAP_NAMESPACE)
+	@XmlElement(name = "links", namespace = DAP_NAMESPACE)
 	private List<LinkRepresentation> links = new ArrayList<>();
 
 	public List<LinkRepresentation> getLinks() {

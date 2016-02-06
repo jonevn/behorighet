@@ -34,4 +34,9 @@ public class AnvändareRepositoryJPA extends BaseRepositoryJPA implements Använ
 		användare.id(UUID.randomUUID());
 		return entityManager.merge(användare);
 	}
+
+	@Override
+	public void taBortAnvändare(UUID id) {
+		entityManager.remove(entityManager.find(Användare.class, id));
+	}
 }

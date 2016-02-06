@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 
 import se.evelonn.behorighet.api.AnvändareRepresentation;
 import se.evelonn.behorighet.api.LinkRepresentation;
 import se.evelonn.behorighet.domain.model.Användare;
+import se.evelonn.behorighet.domain.model.AnvändareBuilder;
 
 public class AnvändareConverter {
 
@@ -40,60 +40,42 @@ public class AnvändareConverter {
 		public AnvändareRepresentation konvertera(Användare användare) {
 			AnvändareRepresentation användareRepresentation = new AnvändareRepresentation();
 			användareRepresentation.setId(användare.id());
-			användareRepresentation.setAnvändarnamn(användare.namn());
-
-			användareRepresentation.getLinks().add(LinkRepresentation.builder()
-					.medURI(uriInfo.getBaseUriBuilder()
-							.segment(AnvändareResource.PATH)
-							.segment(användare.id().toString())
-							.build()
-							.toString())
-					.medRelation("taBort")
-					.medHttpMethod(HttpMethod.DELETE)
-					.medMediaType(MediaType.APPLICATION_JSON)
-					.build());
-
-			användareRepresentation.getLinks()
-					.addAll(användare.roller()
-							.stream()
-							.map(a -> LinkRepresentation.builder()
-									.medURI(uriInfo.getBaseUriBuilder()
-											.segment(RollResource.PATH)
-											.segment(a.id().värde())
-											.build()
-											.toString())
-									.medRelation("roll")
-									.medHttpMethod(HttpMethod.GET)
-									.medMediaType(MediaType.APPLICATION_JSON)
-									.build())
-							.collect(Collectors.toList()));
-
-			användareRepresentation.getLinks().addAll(användare.roller()
-					.stream()
-					.map(r -> LinkRepresentation.builder()
-							.medURI(uriInfo.getBaseUriBuilder()
-									.segment(AnvändareResource.PATH)
-									.segment(användare.id().toString())
-									.segment(r.id().värde())
-									.build()
-									.toString())
-							.medRelation("tabortroll")
-							.medHttpMethod(HttpMethod.DELETE)
-							.medMediaType(MediaType.APPLICATION_JSON)
-							.build())
-					.collect(Collectors.toList()));
+			användareRepresentation.setAnvandarnamn(användare.användarnamn());
+			användareRepresentation.setFornamn(användare.förnamn());
+			användareRepresentation.setEfternamn(användare.efternamn());
+			användareRepresentation.setEpost(användare.epost());
 
 			användareRepresentation.getLinks()
 					.add(LinkRepresentation.builder()
 							.medURI(uriInfo.getBaseUriBuilder()
+									.segment(Paths.ANVÄNDARE)
 									.segment(användare.id().toString())
-									.segment("roller")
 									.build()
 									.toString())
-							.medRelation("tabortallaroller")
+							.medRelation("taBort")
 							.medHttpMethod(HttpMethod.DELETE)
-							.medMediaType(MediaType.APPLICATION_JSON)
 							.build());
+
+			if (!användare.roller().isEmpty()) {
+				användareRepresentation.getLinks().add(LinkRepresentation.builder()
+						.medURI(uriInfo.getBaseUriBuilder()
+								.segment(Paths.ANVÄNDARROLL)
+								.segment(användare.id().toString())
+								.build()
+								.toString())
+						.medRelation("roller")
+						.build());
+
+				användareRepresentation.getLinks().add(LinkRepresentation.builder()
+						.medURI(uriInfo.getBaseUriBuilder()
+								.segment(Paths.ANVÄNDARROLL)
+								.segment(användare.id().toString())
+								.build()
+								.toString())
+						.medRelation("roller")
+						.medHttpMethod(HttpMethod.DELETE)
+						.build());
+			}
 
 			return användareRepresentation;
 		}
@@ -105,12 +87,24 @@ public class AnvändareConverter {
 
 		@Override
 		public Användare konvertera(AnvändareRepresentation användareRepresentation) {
-			return Användare.från(användareRepresentation.getId(), användareRepresentation.getAnvändarnamn());
+			return AnvändareBuilder.builder()
+					.medId(användareRepresentation.getId())
+					.medAnvändarnamn(användareRepresentation.getAnvandarnamn())
+					.medFörnamn(användareRepresentation.getFornamn())
+					.medEfternamn(användareRepresentation.getEfternamn())
+					.medEpost(användareRepresentation.getEpost())
+					.build();
 		}
 
 		@Override
 		public Användare konverteraNy(AnvändareRepresentation användareRepresentation) {
-			return Användare.skapa(användareRepresentation.getAnvändarnamn());
+			return AnvändareBuilder.builder()
+					.ny()
+					.medAnvändarnamn(användareRepresentation.getAnvandarnamn())
+					.medFörnamn(användareRepresentation.getFornamn())
+					.medEfternamn(användareRepresentation.getEfternamn())
+					.medEpost(användareRepresentation.getEpost())
+					.build();
 		}
 	}
 }

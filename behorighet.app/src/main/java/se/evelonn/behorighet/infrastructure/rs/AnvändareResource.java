@@ -16,13 +16,10 @@ import javax.ws.rs.core.Response;
 import se.evelonn.behorighet.api.AnvändareRepresentation;
 import se.evelonn.behorighet.application.service.AnvändareService;
 import se.evelonn.behorighet.domain.model.Användare;
-import se.evelonn.behorighet.domain.model.RollId;
 
 @Stateless
-@Path(AnvändareResource.PATH)
+@Path(Paths.ANVÄNDARE)
 public class AnvändareResource extends BaseResource {
-
-	public static final String PATH = "anvandare";
 
 	@Inject
 	private AnvändareService användareService;
@@ -51,23 +48,38 @@ public class AnvändareResource extends BaseResource {
 	public Response skapaAnvändare(AnvändareRepresentation användareRepresentation) {
 		Användare användare = användareService
 				.skapaAnvändare(AnvändareConverter.converter(uriInfo).konverteraNy(användareRepresentation));
-		return Response.created(
-				uriInfo.getBaseUriBuilder().segment(AnvändareResource.PATH).segment(användare.id().toString()).build())
+		return Response
+				.created(
+						uriInfo.getBaseUriBuilder().segment(Paths.ANVÄNDARE).segment(användare.id().toString()).build())
 				.build();
 	}
 
 	@DELETE
-	@Path("{id}/{rollId}")
-	public Response taBortRollFrånAnvändare(@PathParam("id") String id, @PathParam("rollId") String rollId) {
-		Användare användare = användareService.taBortRollFrånAnvändare(UUID.fromString(id),
-				RollId.från(UUID.fromString(rollId)));
-		return Response.ok().entity(AnvändareConverter.converter(uriInfo).konvertera(användare)).build();
+	@Path("{id}")
+	public Response taBortAnvändare(@PathParam("id") String id) {
+		System.out.println("Tar bort användare med id:" + id);
+		användareService.taBortAnvändare(UUID.fromString(id));
+		return Response.ok().build();
 	}
 
-	@DELETE
-	@Path("{id}/roller")
-	public Response taBortAllaRollerFrånAnvändare(@PathParam("id") String id) {
-		Användare användare = användareService.taBortAllaRollerFrånAnvändare(UUID.fromString(id));
-		return Response.ok().entity(AnvändareConverter.converter(uriInfo).konvertera(användare)).build();
-	}
+	// @DELETE
+	// @Path("{id}/{rollId}")
+	// public Response taBortRollFrånAnvändare(@PathParam("id") String id,
+	// @PathParam("rollId") String rollId) {
+	// Användare användare =
+	// användareService.taBortRollFrånAnvändare(UUID.fromString(id),
+	// RollId.från(UUID.fromString(rollId)));
+	// return
+	// Response.ok().entity(AnvändareConverter.converter(uriInfo).konvertera(användare)).build();
+	// }
+
+	// @DELETE
+	// @Path("{id}/roller")
+	// public Response taBortAllaRollerFrånAnvändare(@PathParam("id") String id)
+	// {
+	// Användare användare =
+	// användareService.taBortAllaRollerFrånAnvändare(UUID.fromString(id));
+	// return
+	// Response.ok().entity(AnvändareConverter.converter(uriInfo).konvertera(användare)).build();
+	// }
 }

@@ -18,6 +18,9 @@ public class RollRepresentation extends BaseRepresentation {
 	@XmlElement(name = "namn")
 	private String namn;
 
+	@XmlElement(name = "beskrivning")
+	private String beskrivning;
+
 	public UUID getId() {
 		return id;
 	}
@@ -32,5 +35,13 @@ public class RollRepresentation extends BaseRepresentation {
 
 	public void setNamn(String namn) {
 		this.namn = namn;
+	}
+
+	public String getBeskrivning() {
+		return beskrivning;
+	}
+
+	public void setBeskrivning(String beskrivning) {
+		this.beskrivning = beskrivning;
 	}
 }

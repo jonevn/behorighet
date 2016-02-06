@@ -30,6 +30,9 @@ public class Roll extends BaseEntity {
 	@Column(name = "namn", unique = true, nullable = false)
 	private String namn;
 
+	@Column(name = "beskrivning")
+	private String beskrivning;
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "roll_rattighet", joinColumns = {
 			@JoinColumn(name = "roll_id", referencedColumnName = "id") }, inverseJoinColumns = {
@@ -40,19 +43,19 @@ public class Roll extends BaseEntity {
 		// JPA
 	}
 
-	private Roll(RollId id, String namn) {
+	private Roll(RollId id, String namn, String beskrivning) {
 		this.id = id;
 		this.namn = namn;
 	}
 
-	public static Roll skapaNy(String namn) {
-		Roll roll = new Roll(RollId.skapa(), namn);
+	public static Roll skapaNy(String namn, String beskrivning) {
+		Roll roll = new Roll(RollId.skapa(), namn, beskrivning);
 		roll.validera();
 		return roll;
 	}
 
-	public static Roll från(RollId id, String namn) {
-		Roll roll = new Roll(id, namn);
+	public static Roll från(RollId id, String namn, String beskrivning) {
+		Roll roll = new Roll(id, namn, beskrivning);
 		roll.validera();
 		return roll;
 	}
@@ -63,6 +66,10 @@ public class Roll extends BaseEntity {
 
 	public String namn() {
 		return namn;
+	}
+
+	public String beskrivning() {
+		return beskrivning;
 	}
 
 	public List<Rättighet> rättigheter() {
@@ -77,6 +84,7 @@ public class Roll extends BaseEntity {
 	public Roll kopieraVärdenFrån(Roll roll) {
 		this.namn = roll.namn;
 		this.rättigheter = roll.rättigheter;
+		this.beskrivning = roll.beskrivning;
 		return this;
 	}
 }

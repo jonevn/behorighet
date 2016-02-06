@@ -14,4 +14,6 @@ public interface AnvändareRepository {
 
 	Användare sparaAnvändare(Användare användare);
 
+	void taBortAnvändare(UUID id);
+
 }

@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.evelonn.behorighet.domain.model.Användare;
+import se.evelonn.behorighet.domain.model.AnvändareBuilder;
 
 public class AnvändareRepositoryJPATest extends EntityTestCase {
 
@@ -26,8 +27,8 @@ public class AnvändareRepositoryJPATest extends EntityTestCase {
 
 	@Test
 	public void rättAntalAnvändareFinns() {
-		användareRepositoryJPA.sparaAnvändare(Användare.skapa("första"));
-		användareRepositoryJPA.sparaAnvändare(Användare.skapa("andra"));
+		användareRepositoryJPA.sparaAnvändare(skapaAnvändare("första"));
+		användareRepositoryJPA.sparaAnvändare(skapaAnvändare("andra"));
 
 		assertThat(användareRepositoryJPA.hämtaAllaAnvändare()).hasSize(2);
 	}
@@ -39,8 +40,18 @@ public class AnvändareRepositoryJPATest extends EntityTestCase {
 
 	@Test
 	public void användareFinns() {
-		Användare användare = användareRepositoryJPA.sparaAnvändare(Användare.skapa("användare"));
+		Användare användare = användareRepositoryJPA.sparaAnvändare(skapaAnvändare("användare"));
 
 		assertThat(användareRepositoryJPA.hämtaAnvändare(användare.id())).contains(användare);
+	}
+
+	private Användare skapaAnvändare(String användarnamn) {
+		return AnvändareBuilder.builder()
+				.ny()
+				.medAnvändarnamn(användarnamn)
+				.medFörnamn("fornamn")
+				.medEfternamn("efternamn")
+				.medEpost("epost")
+				.build();
 	}
 }

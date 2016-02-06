@@ -50,4 +50,9 @@ public class AnvändareService {
 		användare.roller(new ArrayList<>());
 		return användareRepository.uppdateraAnvändare(användare);
 	}
+
+	public void taBortAnvändare(UUID id) {
+		användareRepository.taBortAnvändare(id);
+
+	}
 }

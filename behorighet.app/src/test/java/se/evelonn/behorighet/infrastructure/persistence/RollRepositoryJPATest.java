@@ -27,8 +27,8 @@ public class RollRepositoryJPATest extends EntityTestCase {
 
 	@Test
 	public void rättAntalAnvändareFinns() {
-		rollRepositoryJPA.sparaRoll(Roll.skapaNy("första"));
-		rollRepositoryJPA.sparaRoll(Roll.skapaNy("andra"));
+		rollRepositoryJPA.sparaRoll(Roll.skapaNy("första", "första beskrivning"));
+		rollRepositoryJPA.sparaRoll(Roll.skapaNy("andra", "andra beskrivning"));
 
 		assertThat(rollRepositoryJPA.hämtaAllaRoller()).hasSize(2);
 	}
@@ -40,7 +40,7 @@ public class RollRepositoryJPATest extends EntityTestCase {
 
 	@Test
 	public void användareFinns() {
-		Roll roll = rollRepositoryJPA.sparaRoll(Roll.skapaNy("roll"));
+		Roll roll = rollRepositoryJPA.sparaRoll(Roll.skapaNy("roll", "roll beskrivning"));
 
 		assertThat(rollRepositoryJPA.hämtaRoll(roll.id())).contains(roll);
 	}

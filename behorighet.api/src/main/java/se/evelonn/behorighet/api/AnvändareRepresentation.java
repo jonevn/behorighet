@@ -16,7 +16,16 @@ public class AnvändareRepresentation extends BaseRepresentation {
 	private UUID id;
 
 	@XmlElement(name = "anvandarnamn")
-	private String användarnamn;
+	private String anvandarnamn;
+
+	@XmlElement(name = "fornamn")
+	private String fornamn;
+
+	@XmlElement(name = "efternamn")
+	private String efternamn;
+
+	@XmlElement(name = "epost")
+	private String epost;
 
 	public UUID getId() {
 		return id;
@@ -26,11 +35,35 @@ public class AnvändareRepresentation extends BaseRepresentation {
 		this.id = id;
 	}
 
-	public String getAnvändarnamn() {
-		return användarnamn;
+	public String getAnvandarnamn() {
+		return anvandarnamn;
 	}
 
-	public void setAnvändarnamn(String användarnamn) {
-		this.användarnamn = användarnamn;
+	public void setAnvandarnamn(String anvandarnamn) {
+		this.anvandarnamn = anvandarnamn;
+	}
+
+	public String getFornamn() {
+		return fornamn;
+	}
+
+	public void setFornamn(String fornamn) {
+		this.fornamn = fornamn;
+	}
+
+	public String getEfternamn() {
+		return efternamn;
+	}
+
+	public void setEfternamn(String efternamn) {
+		this.efternamn = efternamn;
+	}
+
+	public String getEpost() {
+		return epost;
+	}
+
+	public void setEpost(String epost) {
+		this.epost = epost;
 	}
 }

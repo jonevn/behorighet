@@ -29,8 +29,20 @@ public class Användare extends BaseEntity {
 	private UUID id;
 
 	@NotNull
-	@Column(name = "namn", nullable = false, unique = true)
-	private String namn;
+	@Column(name = "anvandarnamn", nullable = false, unique = true)
+	private String användarnamn;
+
+	@NotNull
+	@Column(name = "fornamn", nullable = false)
+	private String förnamn;
+
+	@NotNull
+	@Column(name = "efternamn", nullable = false)
+	private String efternamn;
+
+	@NotNull
+	@Column(name = "epost", nullable = false)
+	private String epost;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "anvandare_roll", joinColumns = {
@@ -42,21 +54,12 @@ public class Användare extends BaseEntity {
 		// JPA
 	}
 
-	private Användare(UUID id, String användarnamn) {
+	Användare(UUID id, String användarnamn, String förnamn, String efternamn, String epost) {
 		this.id = id;
-		this.namn = användarnamn;
-	}
-
-	public static Användare skapa(String namn) {
-		Användare användare = new Användare(UUID.randomUUID(), namn);
-		användare.validera();
-		return användare;
-	}
-
-	public static Användare från(UUID id, String användarnamn) {
-		Användare användare = new Användare(id, användarnamn);
-		användare.validera();
-		return användare;
+		this.användarnamn = användarnamn;
+		this.förnamn = förnamn;
+		this.efternamn = efternamn;
+		this.epost = epost;
 	}
 
 	public UUID id() {
@@ -67,8 +70,20 @@ public class Användare extends BaseEntity {
 		this.id = id;
 	}
 
-	public String namn() {
-		return namn;
+	public String användarnamn() {
+		return användarnamn;
+	}
+
+	public String förnamn() {
+		return förnamn;
+	}
+
+	public String efternamn() {
+		return efternamn;
+	}
+
+	public String epost() {
+		return epost;
 	}
 
 	public List<Roll> roller() {
@@ -85,7 +100,10 @@ public class Användare extends BaseEntity {
 	}
 
 	public Användare kopieraVärdenFrån(Användare användare) {
-		this.namn = användare.namn;
+		this.användarnamn = användare.användarnamn;
+		this.förnamn = användare.förnamn;
+		this.efternamn = användare.efternamn;
+		this.epost = användare.epost;
 		this.roller = användare.roller;
 		return this;
 	}

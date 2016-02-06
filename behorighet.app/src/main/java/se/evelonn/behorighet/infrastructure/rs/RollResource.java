@@ -18,10 +18,8 @@ import se.evelonn.behorighet.domain.model.Roll;
 import se.evelonn.behorighet.domain.model.RollId;
 
 @Stateless
-@Path(RollResource.PATH)
+@Path(Paths.ROLL)
 public class RollResource extends BaseResource {
-
-	public static final String PATH = "roll";
 
 	@Inject
 	private RollService rollService;
@@ -50,8 +48,7 @@ public class RollResource extends BaseResource {
 	public Response skapaRoll(RollRepresentation rollRepresentation) {
 		Roll roll = rollService.skapaRoll(RollConverter.converter(uriInfo).konverteraNy(rollRepresentation));
 
-		return Response
-				.created(uriInfo.getBaseUriBuilder().segment(RollResource.PATH).segment(roll.id().värde()).build())
+		return Response.created(uriInfo.getBaseUriBuilder().segment(Paths.ROLL).segment(roll.id().värde()).build())
 				.build();
 	}
 }

@@ -45,6 +45,7 @@ public class RollConverter {
 		public RollRepresentation konvertera(Roll roll) {
 			RollRepresentation rollRepresentation = new RollRepresentation();
 			rollRepresentation.setNamn(roll.namn());
+			rollRepresentation.setBeskrivning(roll.beskrivning());
 
 			rollRepresentation.getLinks()
 					.addAll(roll.rättigheter()
@@ -66,12 +67,13 @@ public class RollConverter {
 
 		@Override
 		public Roll konvertera(RollRepresentation rollRepresentation) {
-			return Roll.från(RollId.från(rollRepresentation.getId()), rollRepresentation.getNamn());
+			return Roll.från(RollId.från(rollRepresentation.getId()), rollRepresentation.getNamn(),
+					rollRepresentation.getBeskrivning());
 		}
 
 		@Override
 		public Roll konverteraNy(RollRepresentation rollRepresentation) {
-			return Roll.skapaNy(rollRepresentation.getNamn());
+			return Roll.skapaNy(rollRepresentation.getNamn(), rollRepresentation.getBeskrivning());
 		}
 	}
 }
