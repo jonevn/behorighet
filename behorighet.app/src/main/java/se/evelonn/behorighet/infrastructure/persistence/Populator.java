@@ -44,5 +44,21 @@ public class Populator {
 				.medEpost("emmaevelonn@gmail.com")
 				.build()
 				.läggTillRoll(roll2));
+
+		entityManager.merge(AnvändareBuilder.builder()
+				.ny()
+				.medAnvändarnamn("hugevn11")
+				.medFörnamn("Hugo")
+				.medEfternamn("Evelönn")
+				.medEpost("hugoevelonn@gmail.com")
+				.build());
+
+		entityManager.merge(AnvändareBuilder.builder()
+				.ny()
+				.medAnvändarnamn("hanevn15")
+				.medFörnamn("Hanna")
+				.medEfternamn("Evelönn")
+				.medEpost("hannaevelonn@gmail.com")
+				.build());
 	}
 }
