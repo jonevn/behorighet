@@ -19,8 +19,10 @@ public class Populator {
 
 	@PostConstruct
 	public void populate() {
-		Rättighet rättighet = entityManager.merge(Rättighet.skapa("skapa person"));
-		Rättighet rättighet2 = entityManager.merge(Rättighet.skapa("administrera person"));
+		Rättighet rättighet = entityManager
+				.merge(Rättighet.skapa("skapa person", "Ger rätt att skapa nya personer i systemet"));
+		Rättighet rättighet2 = entityManager
+				.merge(Rättighet.skapa("administrera person", "Ger rätt att administrera personer i systemet"));
 
 		Roll roll = entityManager.merge(
 				Roll.skapaNy("Personhanterare", "Roll som tillåter personhantering").läggTillRättighet(rättighet));

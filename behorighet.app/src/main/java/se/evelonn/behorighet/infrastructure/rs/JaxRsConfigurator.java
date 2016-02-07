@@ -16,7 +16,8 @@ public class JaxRsConfigurator extends Application {
 
 	@Override
 	public Set<Class<?>> getClasses() {
-		return new HashSet<>(Arrays.asList(AnvändareResource.class, AnvändarrollResource.class, RollResource.class));
+		return new HashSet<>(Arrays.asList(AnvändareResource.class, AnvändarrollResource.class, RollResource.class,
+				RättighetResource.class));
 	}
 
 	@Override
