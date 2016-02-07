@@ -46,6 +46,7 @@ public class Roll extends BaseEntity {
 	private Roll(RollId id, String namn, String beskrivning) {
 		this.id = id;
 		this.namn = namn;
+		this.beskrivning = beskrivning;
 	}
 
 	public static Roll skapaNy(String namn, String beskrivning) {
