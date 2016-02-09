@@ -1,6 +1,8 @@
 package se.evelonn.behorighet.infrastructure.rs;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -14,6 +16,7 @@ import javax.ws.rs.core.Response;
 import se.evelonn.behorighet.application.service.AnvändareService;
 import se.evelonn.behorighet.application.service.RollService;
 import se.evelonn.behorighet.domain.model.Användare;
+import se.evelonn.behorighet.domain.model.Roll;
 import se.evelonn.behorighet.domain.model.RollId;
 
 @Stateless
@@ -31,6 +34,17 @@ public class AnvändarrollResource extends BaseResource {
 	public Response hämtaAnvändarrollerFörAnvändareMedId(@PathParam("id") String id) {
 		Användare användare = användareService.hämtaAnvändare(UUID.fromString(id));
 		return Response.ok(AnvändarrollConverter.converter(uriInfo).konvertera(användare)).build();
+	}
+
+	@GET
+	@Path("{id}/tillgangliga")
+	public Response hämtaRollerTillgängligaAttTilldelaEnAnvändare(@PathParam("id") String id) {
+		Användare användare = användareService.hämtaAnvändare(UUID.fromString(id));
+		List<Roll> roller = rollService.hämtaAllaRoller();
+		return Response
+				.ok(AnvändarrollConverter.converter(uriInfo).konvertera(användare.id(),
+						roller.stream().filter(r -> !användare.roller().contains(r)).collect(Collectors.toList())))
+				.build();
 	}
 
 	@PUT

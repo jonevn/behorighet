@@ -19,6 +19,7 @@ public class AnvändarrollConverter {
 
 		public List<AnvändarrollRepresentation> konvertera(Användare användare);
 
+		public List<AnvändarrollRepresentation> konvertera(UUID id, List<Roll> tillgängligaRoller);
 	}
 
 	public static Converter converter(UriInfo uriInfo) {
@@ -34,11 +35,7 @@ public class AnvändarrollConverter {
 		}
 
 		private AnvändarrollRepresentation konvertera(UUID användarId, Roll roll) {
-			AnvändarrollRepresentation användarrollRepresentation = new AnvändarrollRepresentation();
-			användarrollRepresentation.setAnvandareId(användarId.toString());
-			användarrollRepresentation.setRollId(roll.id().värde());
-			användarrollRepresentation.setRollNamn(roll.namn());
-			användarrollRepresentation.setBeskrivning(roll.beskrivning());
+			AnvändarrollRepresentation användarrollRepresentation = konverteraGrundData(användarId, roll);
 
 			användarrollRepresentation.getLinks()
 					.add(LinkRepresentation.builder()
@@ -56,10 +53,42 @@ public class AnvändarrollConverter {
 			return användarrollRepresentation;
 		}
 
+		private AnvändarrollRepresentation konverteraGrundData(UUID användarId, Roll roll) {
+			AnvändarrollRepresentation användarrollRepresentation = new AnvändarrollRepresentation();
+			användarrollRepresentation.setAnvandareId(användarId.toString());
+			användarrollRepresentation.setRollId(roll.id().värde());
+			användarrollRepresentation.setRollNamn(roll.namn());
+			användarrollRepresentation.setBeskrivning(roll.beskrivning());
+			return användarrollRepresentation;
+		}
+
 		@Override
 		public List<AnvändarrollRepresentation> konvertera(Användare användare) {
 			return användare.roller().stream().map(r -> konvertera(användare.id(), r)).collect(Collectors.toList());
 		}
 
+		private AnvändarrollRepresentation konverteraTillgänglig(UUID användarId, Roll roll) {
+			AnvändarrollRepresentation användarrollRepresentation = konverteraGrundData(användarId, roll);
+
+			användarrollRepresentation.getLinks()
+					.add(LinkRepresentation.builder()
+							.medURI(uriInfo.getBaseUriBuilder()
+									.segment(Paths.ANVÄNDARROLL)
+									.segment(användarId.toString())
+									.segment(roll.id().värde())
+									.build()
+									.toString())
+							.medRelation("läggtill")
+							.medHttpMethod(HttpMethod.PUT)
+							.medMediaType(MediaType.APPLICATION_JSON)
+							.build());
+
+			return användarrollRepresentation;
+		}
+
+		@Override
+		public List<AnvändarrollRepresentation> konvertera(UUID id, List<Roll> tillgängligaRoller) {
+			return tillgängligaRoller.stream().map(r -> konverteraTillgänglig(id, r)).collect(Collectors.toList());
+		}
 	}
 }
