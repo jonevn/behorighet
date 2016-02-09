@@ -10,12 +10,15 @@ public class AnvändarrollRepresentation extends BaseRepresentation {
 
 	@XmlElement(name = "anvandareId")
 	private String anvandareId;
-	
+
 	@XmlElement(name = "rollId")
 	private String rollId;
-	
+
 	@XmlElement(name = "rollNamn")
 	private String rollNamn;
+
+	@XmlElement(name = "beskrivning")
+	private String beskrivning;
 
 	public String getAnvandareId() {
 		return anvandareId;
@@ -39,5 +42,13 @@ public class AnvändarrollRepresentation extends BaseRepresentation {
 
 	public void setRollNamn(String rollNamn) {
 		this.rollNamn = rollNamn;
+	}
+
+	public String getBeskrivning() {
+		return beskrivning;
+	}
+
+	public void setBeskrivning(String beskrivning) {
+		this.beskrivning = beskrivning;
 	}
 }

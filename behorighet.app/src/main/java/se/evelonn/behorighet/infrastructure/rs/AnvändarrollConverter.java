@@ -38,6 +38,7 @@ public class AnvändarrollConverter {
 			användarrollRepresentation.setAnvandareId(användarId.toString());
 			användarrollRepresentation.setRollId(roll.id().värde());
 			användarrollRepresentation.setRollNamn(roll.namn());
+			användarrollRepresentation.setBeskrivning(roll.beskrivning());
 
 			användarrollRepresentation.getLinks()
 					.add(LinkRepresentation.builder()

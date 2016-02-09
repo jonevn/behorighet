@@ -9,9 +9,8 @@ public class RättighetTest {
 	@Test
 	public void skaInteGåAttSkapaRättighetUtanNamn() {
 		try {
-			Rättighet.skapa(null);
+			Rättighet.skapa(null, "");
 		} catch (IllegalArgumentException e) {
-			System.out.println(e.getMessage());
 			// expected
 			return;
 		}
