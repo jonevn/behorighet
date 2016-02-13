@@ -1,5 +1,7 @@
 package se.evelonn.behorighet.infrastructure.persistence;
 
+import java.util.stream.IntStream;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -28,6 +30,11 @@ public class Populator {
 				Roll.skapaNy("Personhanterare", "Roll som tillåter personhantering").läggTillRättighet(rättighet));
 		Roll roll2 = entityManager.merge(
 				Roll.skapaNy("Administrerare", "Roll som tillåter administrering").läggTillRättighet(rättighet2));
+
+		IntStream.range(0, 10).forEach(
+				i -> entityManager.merge(Roll.skapaNy("Administrerare" + i, "Roll som tillåter administrering")));
+		// entityManager.merge(
+		// Roll.skapaNy("Administrerare1", "Roll som tillåter administrering"));
 
 		entityManager.merge(AnvändareBuilder.builder()
 				.ny()

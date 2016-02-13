@@ -53,7 +53,10 @@ public class AnvändarrollResource extends BaseResource {
 			@PathParam("anvandarId") String användarId) {
 		Användare användare = användareService.hämtaAnvändare(UUID.fromString(användarId));
 		användare.läggTillRoll(rollService.hämtaRoll(RollId.från(rollId)));
-		return Response.ok().build();
+		// TODO: Notera! Eftersom vi läst upp användare och lägger till roll, så
+		// kommer användaren att sparas automatiskt när transaktionen stängs.
+		// Detta är inte helt självklart, eftersom att vi inte aktivt sparar
+		return Response.ok(AnvändareConverter.converter(uriInfo).konvertera(användare)).build();
 	}
 
 	@DELETE
