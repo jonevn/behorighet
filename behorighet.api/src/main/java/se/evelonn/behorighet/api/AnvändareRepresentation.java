@@ -2,6 +2,9 @@ package se.evelonn.behorighet.api;
 
 import java.util.UUID;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -15,15 +18,23 @@ public class AnvändareRepresentation extends BaseRepresentation {
 	@XmlJavaTypeAdapter(UUIDJavaAdapter.class)
 	private UUID id;
 
+	@NotNull
+	@Size(min = 1, max = 255)
 	@XmlElement(name = "anvandarnamn")
 	private String anvandarnamn;
 
+	@NotNull
+	@Size(min = 1, max = 255)
 	@XmlElement(name = "fornamn")
 	private String fornamn;
 
+	@NotNull
+	@Size(min = 1, max = 255)
 	@XmlElement(name = "efternamn")
 	private String efternamn;
 
+	@NotNull
+	@Pattern(regexp = "\\S+@\\S+\\.\\S+")
 	@XmlElement(name = "epost")
 	private String epost;
 

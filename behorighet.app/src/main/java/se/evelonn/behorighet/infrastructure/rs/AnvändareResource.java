@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -38,14 +39,14 @@ public class AnvändareResource extends BaseResource {
 	}
 
 	@PUT
-	public Response uppdateraAnvändare(AnvändareRepresentation användareRepresentation) {
+	public Response uppdateraAnvändare(@Valid AnvändareRepresentation användareRepresentation) {
 		Användare användare = användareService
 				.uppdateraAnvändare(AnvändareConverter.converter(uriInfo).konvertera(användareRepresentation));
 		return Response.ok(AnvändareConverter.converter(uriInfo).konvertera(användare)).build();
 	}
 
 	@POST
-	public Response skapaAnvändare(AnvändareRepresentation användareRepresentation) {
+	public Response skapaAnvändare(@Valid AnvändareRepresentation användareRepresentation) {
 		Användare användare = användareService
 				.skapaAnvändare(AnvändareConverter.converter(uriInfo).konverteraNy(användareRepresentation));
 		return Response
@@ -61,25 +62,4 @@ public class AnvändareResource extends BaseResource {
 		användareService.taBortAnvändare(UUID.fromString(id));
 		return Response.ok().build();
 	}
-
-	// @DELETE
-	// @Path("{id}/{rollId}")
-	// public Response taBortRollFrånAnvändare(@PathParam("id") String id,
-	// @PathParam("rollId") String rollId) {
-	// Användare användare =
-	// användareService.taBortRollFrånAnvändare(UUID.fromString(id),
-	// RollId.från(UUID.fromString(rollId)));
-	// return
-	// Response.ok().entity(AnvändareConverter.converter(uriInfo).konvertera(användare)).build();
-	// }
-
-	// @DELETE
-	// @Path("{id}/roller")
-	// public Response taBortAllaRollerFrånAnvändare(@PathParam("id") String id)
-	// {
-	// Användare användare =
-	// användareService.taBortAllaRollerFrånAnvändare(UUID.fromString(id));
-	// return
-	// Response.ok().entity(AnvändareConverter.converter(uriInfo).konvertera(användare)).build();
-	// }
 }
