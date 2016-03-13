@@ -33,41 +33,14 @@ public class Populator {
 
 		IntStream.range(0, 10).forEach(
 				i -> entityManager.merge(Roll.skapaNy("Administrerare" + i, "Roll som tillåter administrering")));
-		// entityManager.merge(
-		// Roll.skapaNy("Administrerare1", "Roll som tillåter administrering"));
 
 		entityManager.merge(AnvändareBuilder.builder()
 				.ny()
-				.medAnvändarnamn("jonevn02")
-				.medFörnamn("Johan")
-				.medEfternamn("Evelönn")
-				.medEpost("johanevelonn@gmail.com")
+				.medAnvändarnamn("johndoe")
+				.medFörnamn("John")
+				.medEfternamn("Doe")
+				.medEpost("john.doe@someemail.com")
 				.build()
 				.läggTillRoll(roll));
-
-		entityManager.merge(AnvändareBuilder.builder()
-				.ny()
-				.medAnvändarnamn("emaaon02")
-				.medFörnamn("Emma")
-				.medEfternamn("Evelönn")
-				.medEpost("emmaevelonn@gmail.com")
-				.build()
-				.läggTillRoll(roll2));
-
-		entityManager.merge(AnvändareBuilder.builder()
-				.ny()
-				.medAnvändarnamn("hugevn11")
-				.medFörnamn("Hugo")
-				.medEfternamn("Evelönn")
-				.medEpost("hugoevelonn@gmail.com")
-				.build());
-
-		entityManager.merge(AnvändareBuilder.builder()
-				.ny()
-				.medAnvändarnamn("hanevn15")
-				.medFörnamn("Hanna")
-				.medEfternamn("Evelönn")
-				.medEpost("hannaevelonn@gmail.com")
-				.build());
 	}
 }
