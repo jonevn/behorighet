@@ -4,10 +4,10 @@
 		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
  <session-factory name="java:jboss/datasources/behorighet">
-  <mapping class="se.evelonn.behorighet.domain.model.BaseEntity" />
+ <!--  <mapping class="se.evelonn.behorighet.domain.model.BaseEntity" />
   <mapping class="se.evelonn.behorighet.domain.model.Användare" />
   <mapping class="se.evelonn.behorighet.domain.model.Roll" />
   <mapping class="se.evelonn.behorighet.domain.model.RollId"/>
-  <mapping class="se.evelonn.behorighet.domain.model.Rättighet" />
+  <mapping class="se.evelonn.behorighet.domain.model.Rättighet" /> -->
  </session-factory>
 </hibernate-configuration>

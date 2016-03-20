@@ -1,0 +1,2 @@
+insert into anvandare (id, anvandarnamn, efternamn, epost, fornamn) values (X'abababababababababababababababab', 'anvandare1', 'Testare', 'test@test.com', 'Test'), (X'abababababababababababababababac', 'anvandare2', 'Testare2', 'test@test.com', 'Test2');
+insert into roll values (X'abababababababababababababababab', 'beskrivning', 'rollnamn');

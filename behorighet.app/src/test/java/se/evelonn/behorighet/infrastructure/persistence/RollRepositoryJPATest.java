@@ -20,26 +20,27 @@ public class RollRepositoryJPATest extends EntityTestCase {
 		rollRepositoryJPA.setEntityManager(entityManager);
 	}
 
-	@Test
-	public void ingenRollFinns() {
-		assertThat(rollRepositoryJPA.hämtaAllaRoller()).isEmpty();
-	}
+	// @Test
+	// public void ingenRollFinns() {
+	// assertThat(rollRepositoryJPA.hämtaAllaRoller()).isEmpty();
+	// }
 
 	@Test
-	public void rättAntalAnvändareFinns() {
+	public void rättRollerAnvändareFinns() {
 		rollRepositoryJPA.sparaRoll(Roll.skapaNy("första", "första beskrivning"));
 		rollRepositoryJPA.sparaRoll(Roll.skapaNy("andra", "andra beskrivning"));
 
-		assertThat(rollRepositoryJPA.hämtaAllaRoller()).hasSize(2);
+		// Två skapas här och en skjuts in via persistence.xml
+		assertThat(rollRepositoryJPA.hämtaAllaRoller()).hasSize(3);
 	}
 
 	@Test
-	public void användareFinnsInte() {
+	public void rollFinnsInte() {
 		assertThat(rollRepositoryJPA.hämtaRoll(RollId.från(UUID.randomUUID()))).isEmpty();
 	}
 
 	@Test
-	public void användareFinns() {
+	public void rollFinns() {
 		Roll roll = rollRepositoryJPA.sparaRoll(Roll.skapaNy("roll", "roll beskrivning"));
 
 		assertThat(rollRepositoryJPA.hämtaRoll(roll.id())).contains(roll);

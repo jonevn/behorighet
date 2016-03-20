@@ -3,6 +3,7 @@ package se.evelonn.behorighet.infrastructure.persistence;
 import java.util.stream.IntStream;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.DependsOn;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ import se.evelonn.behorighet.domain.model.Rättighet;
 
 @Singleton
 @Startup
+@DependsOn("dbmigrator")
 public class Populator {
 
 	@PersistenceContext(name = "se.evelonn.behorighet")

@@ -20,17 +20,18 @@ public class AnvändareRepositoryJPATest extends EntityTestCase {
 		användareRepositoryJPA.setEntityManager(entityManager);
 	}
 
-	@Test
-	public void ingenAnvändareFinns() {
-		assertThat(användareRepositoryJPA.hämtaAllaAnvändare()).isEmpty();
-	}
+	// @Test
+	// public void ingenAnvändareFinns() {
+	// assertThat(användareRepositoryJPA.hämtaAllaAnvändare()).isEmpty();
+	// }
 
 	@Test
 	public void rättAntalAnvändareFinns() {
 		användareRepositoryJPA.sparaAnvändare(skapaAnvändare("första"));
 		användareRepositoryJPA.sparaAnvändare(skapaAnvändare("andra"));
 
-		assertThat(användareRepositoryJPA.hämtaAllaAnvändare()).hasSize(2);
+		// Två skapas här och två skjuts in via data laddning i persistence.xml
+		assertThat(användareRepositoryJPA.hämtaAllaAnvändare()).hasSize(4);
 	}
 
 	@Test
