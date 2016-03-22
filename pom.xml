@@ -8,6 +8,7 @@
 	<modules>
 		<module>behorighet.api</module>
 		<module>behorighet.app</module>
+		<module>behorighet.web</module>
 	</modules>
 
 	<properties>

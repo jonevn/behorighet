@@ -1,5 +1,6 @@
 package se.evelonn.behorighet.api;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(name = LinkRepresentation.NAME, namespace = BaseRepresentation.DAP_NAMESPACE)
 @XmlRootElement(name = LinkRepresentation.NAME)
-public class LinkRepresentation {
+public class LinkRepresentation implements Serializable {
 
 	protected static final String NAME = "link";
 

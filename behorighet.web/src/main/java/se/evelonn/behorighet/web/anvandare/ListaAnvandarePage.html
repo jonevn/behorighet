@@ -1,0 +1,79 @@
+<wicket:extend>
+	<div class="panel panel-primary">
+		<div class="panel-heading">Användare</div>
+		<div class="panel-body">Här listas användare i systemet</div>
+
+		<table class="table table-condensed table-hover" wicket:id="listContainer">
+			<thead>
+				<tr>
+					<th>användarnamn</th>
+					<th>förnamn</th>
+					<th>efternamn</th>
+					<th>epost</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody wicket:id="anvandare">
+				<tr>
+					<td><span wicket:id="anvandarnamn"/></td>
+					<td><span wicket:id="fornamn"/></td>
+					<td><span wicket:id="efternamn"/></td>
+					<td><span wicket:id="epost"/></td>
+					<td>
+						<div class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"
+								role="button" aria-haspopup="true" aria-expanded="false">Meny
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li wicket:id="harRoller">
+								    <a role="button" wicket:id="visaRoller">visa roller</a>
+								</li>
+								<li wicket:id="kanTaBortAllaRoller">
+								    <a role="button" wicket:id="taBortAllaRoller">ta bort alla roller</a>
+								</li>
+								<li wicket:id="kanTaBortAnvandare">
+								    <a role="button" wicket:id="taBortAnvandare">ta bort användare</a>
+								</li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+				<!-- <tr *ngIf="visasRoller(anvandare)">
+					<td colspan="5">
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								Roller för {{anvandare.anvandarnamn}}
+								<div style="float: right">
+									<a role="button" (click)="doljRoller(anvandare.id)"><span
+										class="glyphicon glyphicon-remove"></span></a>
+								</div>
+							</div>
+							<div class="panel-body">
+								<div class="well well-lg" style="width: 45%; float: left"
+									(drop)="valjRoll(anvandare)"
+									ondragover="event.preventDefault()">
+									<span>Valda roller</span>
+									<ul class="list-group">
+										<li class="list-group-item" style="margin-top: 5px"
+											*ngFor="#roll of roller(anvandare.id)"><img
+											alt="{{roll.rollNamn}}" draggable="true"></li>
+									</ul>
+								</div>
+								<div class="well well-lg" style="width: 45%; float: right">
+									<span>Tillgänglia roller</span>
+									<ul class="list-group">
+										<li class="list-group-item" style="margin-top: 5px"
+											*ngFor="#tillRoll of tillRoller(anvandare.id)"><img
+											alt="{{tillRoll.rollNamn}}" draggable="true"
+											(drag)="sattValdRoll(tillRoll)"></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr> -->
+			</tbody>
+		</table>
+	</div>
+</wicket:extend>
